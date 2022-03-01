@@ -28,7 +28,7 @@ int main() {
 
     bool flag = true;
     while(!WindowShouldClose() && flag){
-        // Create new object every 200 frames.
+
         deltaTime += distance * GetFrameTime();
 
         if(deltaTime >= 6){
@@ -43,6 +43,7 @@ int main() {
         // Drawing
         draw(obstacleList, player   , screenHeight);
 
+        // checks if the player hits any of the black poles
         hitsPole(obstacleList, player, flag);
     }
 
@@ -87,7 +88,9 @@ void hitsPole(std::vector <Obstacle> &list, Player &player, bool &flag){
     {
         if(player.getPosition().x == list.at(i).getPosX()){
             if(player.getPosition().y > list.at(i).getSafeZone() && player.getPosition().y < list.at(i).getSafeZone() + 300){
+                // still alive
             }else{
+                // died
                 flag = false;
             }
         }
