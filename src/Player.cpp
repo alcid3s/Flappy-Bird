@@ -18,7 +18,7 @@ Player::~Player(){
 
 void Player::update(int width, int height){
     if(firstTimeUpdate){
-        pos = { (float) width / 8, (float) height / 2};
+        pos = { (float) width / 4, (float) height / 2};
         firstTimeUpdate = false;
     }
 
@@ -31,8 +31,11 @@ void Player::update(int width, int height){
     if(pos.y >= 1300){
         pos.y = 500;
     }
+    if(pos.x == 0){
+        pos.x = 100;
+    }
 
-    pos = {pos.x + (pos.x - lastPos.x), pos.y + (pos.y - lastPos.y + 4)};
+    pos = {pos.x, pos.y + (pos.y - lastPos.y + 4)};
 }   
 
 void Player::draw(){

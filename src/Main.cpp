@@ -12,15 +12,16 @@ std::vector<Obstacle> spawnNewObject(std::vector<Obstacle> &list, int height);
 
 int main() {
 
-    // Initializtion
-    const int screenWidth = 1920;
-    const int screenHeight = 1080;
-    const int distance = 2.0f;
+    // Initialization
+    const int screenWidth = GetScreenWidth();
+    const int screenHeight = GetScreenHeight();
+    const float distance = 2.0f;
 
     SetTraceLogLevel(LOG_NONE);
-    InitWindow(screenWidth, screenHeight, "Game");
+    InitWindow(screenWidth, screenHeight, "Flappy bird");
 
     float deltaTime = 0;
+    float timer = 0;
     Player player;
     SetTargetFPS(60);
 
@@ -29,12 +30,12 @@ int main() {
     bool flag = true;
     while(!WindowShouldClose() && flag){
 
-        deltaTime += distance * GetFrameTime();
+        deltaTime = GetFrameTime();
+        timer += deltaTime * distance;
 
-        if(deltaTime >= 6){
+        if(timer >= 6){
            obstacleList = spawnNewObject(obstacleList, screenHeight);
-           obstacleList.shrink_to_fit();
-           deltaTime = 0;
+           timer = 0;
         }
 
         // Updatable.
@@ -71,16 +72,16 @@ void update(std::vector<Obstacle> &list, Player &player, int width, int height){
 }
 
 void draw(std::vector<Obstacle> &list, Player &player, int height){
-        BeginDrawing();
-        ClearBackground(GRAY);
-        
-        player.draw();
+    BeginDrawing();
+    ClearBackground(GRAY);
+    
+    player.draw();
 
-            for (size_t i = 0; i < list.size(); i++)
+    for (size_t i = 0; i < list.size(); i++)
     {
         list.at(i).draw(height);
     }
-        EndDrawing();
+    EndDrawing();
 }
 
 void hitsPole(std::vector <Obstacle> &list, Player &player, bool &flag){

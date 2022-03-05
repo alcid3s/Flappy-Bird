@@ -7,7 +7,7 @@ Obstacle::Obstacle(int height){
     srand(time(0));
     safeZone = 0;
     while(safeZone < 300){
-        safeZone = rand() % (height - 300);
+        safeZone = 300 + rand() % (height - 300);
     }
 
     position = {(float) 1800, (float) 1};
